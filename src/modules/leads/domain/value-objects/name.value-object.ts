@@ -25,7 +25,7 @@ export class Name extends ValueObject<NameProps> {
     });
   }
 
-  get firstName(): string {
+  get name(): string {
     return this._value.name;
   }
 
