@@ -11,10 +11,13 @@ import { DeleteLeadHandler } from './applications/commands/delete-lead/delete-le
 import { FindAllLeadsHandler } from './applications/queries/find-all-leads/find-all-leads.handler';
 import { FindLeadByIdHandler } from './applications/queries/find-lead-by-id/find-lead-by-id.handler';
 import { GetLeadStatsHandler } from './applications/queries/get-lead-stats/get-lead-stats.handler';
+import { GetAiSummaryHandler } from './applications/queries/get-ai-summary/get-ai-summary.handler';
 import { LeadCreatedHandler } from './applications/events/lead-created/lead-created.handler';
+import { AnthropicLlmService } from './infrastructure/ai/anthropic-llm.service';
+import { LlmPort } from './domain/ports/llm.port';
 
 const CommandHandlers = [CreateLeadHandler, UpdateLeadHandler, DeleteLeadHandler];
-const QueryHandlers = [FindAllLeadsHandler, FindLeadByIdHandler, GetLeadStatsHandler];
+const QueryHandlers = [FindAllLeadsHandler, FindLeadByIdHandler, GetLeadStatsHandler, GetAiSummaryHandler];
 const EventHandlers = [LeadCreatedHandler];
 
 @Module({
@@ -25,6 +28,7 @@ const EventHandlers = [LeadCreatedHandler];
     ...QueryHandlers,
     ...EventHandlers,
     { provide: LeadRepository, useClass: LeadTypeOrmRepository },
+    { provide: LlmPort, useClass: AnthropicLlmService },
   ],
 })
 export class LeadsModule {}

@@ -331,3 +331,43 @@ npm run test:e2e
 **Soft delete**: Los leads no se eliminan físicamente. El campo `is_active` puede ser `ACTIVE`, `INACTIVE` o `DELETED`. El método `delete()` en la entidad cambia el estado a `DELETED`.
 
 **Migrations vs synchronize**: `synchronize: false` en producción. Las migraciones se versionan en `src/database/migrations/` y se ejecutan manualmente con `npm run migration:run`.
+
+
+---
+
+### AI Summary
+
+```
+POST /leads/ai/summary
+```
+**Nota**: Para este endpoint es necesario tener una clave de API de Anthropic en el entorno. Pero no cuento con una clave para que no se haga un commit y ponerla a prueba.
+
+Por lo tanto solo hize el codigo basado en documentación encontrada con el fin de validar que se devuelve un mock de validación retornado por el servicio de Anthropic.
+
+**Body:**
+```json
+{
+  "source": "website",
+  "fromDate": "2024-01-01",
+  "toDate": "2024-12-31"
+}
+```
+
+**Respuesta `200`:**
+```json
+{
+  "totalLeads": 12,
+  "leadsBySource": [
+    { "source": "website", "count": 3 },
+    { "source": "referral", "count": 2 },
+    { "source": "social_media", "count": 2 },
+    { "source": "email_campaign", "count": 2 },
+    { "source": "cold_call", "count": 2 },
+    { "source": "event", "count": 1 }
+  ],
+  "averageBudget": 6958.33,
+  "lastSevenDaysLeads": 12
+}
+```
+
+---
