@@ -14,7 +14,7 @@ export class UpdateLeadHandler implements ICommandHandler<UpdateLeadCommand> {
     private readonly leadRepository: LeadRepository,
   ) {}
 
-  async execute(command: UpdateLeadCommand): Promise<void> {
+  async execute(command: UpdateLeadCommand): Promise<{ id: string }> {
     const { name, email, phone = '', source, productInterest = '', budget = 0 } = command.dto;
     const lead = await this.leadRepository.findById(new UuidValueObject(command.id));
     if (!lead) throw new LeadNotFoundException(command.id);
@@ -30,6 +30,6 @@ export class UpdateLeadHandler implements ICommandHandler<UpdateLeadCommand> {
 
     const updatedLead = await this.leadRepository.update(lead);
 
-    await this.leadRepository.save(updatedLead);
+    return { id: updatedLead.id.value };
   }
 }

@@ -35,7 +35,7 @@ export class Lead extends AggregateRoot {
   readonly _createdAt: Date;
   _updatedAt: Date;
 
-  constructor(private readonly props: LeadProps) {
+  constructor(props: LeadProps) {
     super();
     this._id = props.id ?? new UuidValueObject();
     this._name = props.name;
@@ -44,7 +44,7 @@ export class Lead extends AggregateRoot {
     this._source = props.source;
     this._productInterest = props.productInterest ?? '';
     this._budget = props.budget ?? 0;
-    this._isActive = LeadStatus.ACTIVE;
+    this._isActive = props.isActive ?? LeadStatus.ACTIVE;
     this._createdAt = props.createdAt;
     this._updatedAt = props.updatedAt;
   }
@@ -107,6 +107,7 @@ export class Lead extends AggregateRoot {
   get source() { return this._source; }
   get productInterest() { return this._productInterest; }
   get budget() { return this._budget; }
+  get isActive() { return this._isActive; }
   get createdAt() { return this._createdAt; }
   get updatedAt() { return this._updatedAt; }
 } 

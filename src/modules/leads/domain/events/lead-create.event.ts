@@ -1,7 +1,7 @@
 import { DomainEvent } from '../../../../shared/domain/domain-event';
 
 export class LeadCreateEvent extends DomainEvent {
-  public static readonly EVENT_NAME:string = 'user.created';
+  public static readonly EVENT_NAME:string = 'lead.created';
 
   constructor(
     public readonly id: string
